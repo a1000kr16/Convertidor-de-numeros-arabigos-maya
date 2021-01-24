@@ -6,14 +6,143 @@
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='../css/main.css'>
-    <script type="text/javascript" src="../script/funciones.js"></script>
- <!--   <script src="../script/"></script>-->
+    <script>
+        nivel1=1;
+        nivel2=20;
+        nivel3=400;
+        nivel4=8000;
+        function conversion() {
+            entrada = parseInt(document.getElementById("entrada").value);
+            if ((entrada>=401)|(entrada<0)) {
+                window.alert("No se aceptan numeros mayores a 400 y numeros negativos");
+            }
+            else
+            {
+            limpiar();
+            resultado = conversionAlgoritmo(entrada);
+            elementos = resultado.split("/");
+            codigo1 = elementos[0]; 
+            codigo2 = elementos[1];
+            codigo3 = elementos[2];
+            console.log("El nuemero "+entrada+" lo conforman los numeros "+codigo1+" | "+codigo2+" | "+codigo3+" en maya");
+            document.getElementById("nivel1").innerHTML = numeroMaya(codigo1);
+            if (entrada >= 20) {
+                document.getElementById("nivel2").innerHTML = numeroMaya(codigo2);
+            }
+            if ( (entrada >= 400 ) && (entrada <= 7999) ) {
+                console.log("pasa");
+                document.getElementById("nivel3").innerHTML = numeroMaya(codigo3);
+            }
+            }
+        }
+        function limpiar(){
+            document.getElementById("nivel1").innerHTML = "";
+            document.getElementById("nivel2").innerHTML = "";
+            document.getElementById("nivel3").innerHTML = "";
+        }
+        function numeroMaya(codigo){
+            imagen=" ";
+            switch (codigo) {
+                case '0': imagen = "<img src='../imagenes/mayamarron0.png'></img>"
+                break;
+                case '1': imagen = "<img src='../imagenes/mayamarron1.png'></img>"
+                break;
+                case '2': imagen = "<img src='../imagenes/mayamarron2.png'></img>"
+                break;
+                case '3': imagen = "<img src='../imagenes/mayamarron3.png'></img>"
+                break;
+                case '4': imagen = "<img src='../imagenes/mayamarron4.png'></img>"
+                break;
+                case '5': imagen = "<img src='../imagenes/mayamarron5.png'></img>"
+                break;
+                case '6': imagen = "<img src='../imagenes/mayamarron6.png'></img>"
+                break;
+                case '7': imagen = "<img src='../imagenes/mayamarron7.png'></img>"
+                break;
+                case '8': imagen = "<img src='../imagenes/mayamarron8.png'></img>"
+                break;
+                case '9': imagen = "<img src='../imagenes/mayamarron9.png'></img>"
+                break;
+                case '10': imagen = "<img src='../imagenes/mayamarron10.png'></img>"
+                break;
+                case '11': imagen = "<img src='../imagenes/mayamarron11.png'></img>"
+                break;
+                case '12': imagen = "<img src='../imagenes/mayamarron12.png'></img>"
+                break;
+                case '13': imagen = "<img src='../imagenes/mayamarron13.png'></img>"
+                break;
+                case '14': imagen = "<img src='../imagenes/mayamarron14.png'></img>"
+                break;
+                case '15': imagen = "<img src='../imagenes/mayamarron15.png'></img>"
+                break;
+                case '16': imagen = "<img src='../imagenes/mayamarron16.png'></img>"
+                break;
+                case '17': imagen = "<img src='../imagenes/mayamarron17.png'></img>"
+                break;
+                case '18': imagen = "<img src='../imagenes/mayamarron18.png'></img>"
+                break;
+                case '19': imagen = "<img src='../imagenes/mayamarron19.png'></img>"
+                break;
+                }
+                return imagen;
+            }
+            function conversionAlgoritmo(numero){
+                digito1=0;
+                digito2=0;
+                digito3=0;
+                digito4=0;
+                parseInt(numero);
+                if((Math.trunc(numero/nivel3))>=1){
+                    digito3 = Math.trunc(numero/nivel3);
+                     numero = numero - (digito3*nivel3);
+                if((Math.trunc(numero/nivel2))>=1){
+                    digito2 = Math.trunc(numero/nivel2);
+                    numero = numero - (digito2*nivel2);
+                    digito1 = numero;
+                }
+                else
+                {
+                    digito1 = numero;
+                }
+            }
+            else
+            {
+                if((Math.trunc(numero/nivel2))>=1){
+                    digito2 = Math.trunc(numero/nivel2);
+                    numero = numero - (digito2*nivel2);
+                    digito1 = numero;
+                }
+            else
+            {
+                digito1 = numero;
+                //console.log(digito1);
+            }
+        }
+        //console.log(digito1+"  "+digito2+"  "+digito3);
+        codigo = digito1+"/"+digito2+"/"+ digito3;
+        return codigo;
+    }
+    </script>
 </head>
 <body>
-    <input id="entrada" type="number" min="0" max="400"  name="numeros">
-    <input type="button" onclick='conversion()' value="Convertir">
-    <label id= "label"></label>
+    <center>
+    <h2>Ingresa un numero</h2>
+    <input id="entrada" type="number" step="1"  min="0" max="400" name="numeros">
+    <p></p>
+    <input type="button" class="boton_personalizado" id="boton_personalizado" onclick='conversion();' value="Convertir">
+    <P></P>
     <output id="resultado" ></output>
-    <p>Usa la consola para ver el resultado</p>
+    <table class="default" id="tabla">
+        <tr>
+          <td id="nivel3"></td>
+        </tr>
+        <tr>
+            <td id="nivel2"></td>
+          </tr>
+          <tr>
+            <td id="nivel1"></td>
+          </tr>
+      </table>
+      </center>
 </body>
 </html>
