@@ -3,10 +3,7 @@
 <head>
     <title>Convertidor</title>
     <link rel="icon" href="../imagenes/fondo.png"/>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='../css/main.css'>
     <script>
         var tabla = document.getElementsByClassName("mayaboton");
@@ -46,7 +43,6 @@
                     contador = pantalla.class;
                     pantalla.value = pantalla.value+codigo+"/";
                     inicializador = pantalla.value;
-                    console.log(pantalla.value);
                     if(contador == 3){
                         //window.alert("Solo exedio la cantidad de digitos posibles");
                         desactivar();
@@ -59,7 +55,6 @@
                     contador = pantalla.class;
                     pantalla.value = pantalla.value+codigo+"/";
                     inicializador = pantalla.value;
-                    console.log(pantalla.value);
                     if(contador == 3){
                         //window.alert("Solo exedio la cantidad de digitos posibles");
                         desactivar();
@@ -86,7 +81,6 @@
                 document.getElementById("nivel2").innerHTML = numeroMaya(codigo2)+"style ='width:50px;height:50px'></img>"; // img
             }
             if ( (entrada >= 400 ) && (entrada <= 7999) ) {
-                console.log("pasa");
                 document.getElementById("nivel3").innerHTML = numeroMaya(codigo3) +"style ='width:50px;height:50px'></img>"; // img
             }
             }
@@ -96,7 +90,6 @@
             var resultado = 0;
             var codigos = pantalla.value;
             var digitos = codigos.split("/");
-            console.log(digitos.length);
             switch (digitos.length) {
                 case 2:
                     pantalla = document.getElementById("pantalla2");
@@ -298,6 +291,7 @@
                 </div>
             </div>
         </div>
+        <button id="button" class="boton_personalizado" onclick="location.href='../documentos/Tutorial.pdf'">Ayuda</button>
     </center>
 </body>
 </html>
