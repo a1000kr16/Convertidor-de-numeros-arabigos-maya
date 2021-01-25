@@ -1,16 +1,72 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>Convertidor</title>
+    <link rel="icon" href="../imagenes/fondo.png"/>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Page Title</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='../css/main.css'>
     <script>
-        nivel1=1;
-        nivel2=20;
-        nivel3=400;
-        nivel4=8000;
+        var tabla = document.getElementsByClassName("mayaboton");
+        var nivel1=1;
+        var nivel2=20;
+        var nivel3=400;
+        var nivel4=8000;
+        var contador = 0;
+        var inicializador="";
+        window.addEventListener("load",inicio);
+        function inicio() {
+            var i = 0;
+            while(i < tabla.length){
+                tabla[i].addEventListener("click", accion);
+                i++;
+		    }
+        }
+
+        function desactivar() {
+            var i = 0;
+            while(i < tabla.length){
+                tabla[i].removeEventListener("click", accion);
+                i++;
+		    }
+        }
+
+        function accion() {
+            pantalla = document.getElementById("pantalla");
+            pantalla.class = contador;
+            pantalla.value = inicializador;
+            var idBoton = event.target.id;
+            switch (idBoton.length) {
+                case 6:
+                    codigo=idBoton[5]; 
+                    pantalla.innerHTML += numeroMaya(codigo)+"style ='width:50px;height:50px'></img>"; // img
+                    pantalla.class = pantalla.class+1;
+                    contador = pantalla.class;
+                    pantalla.value = pantalla.value+codigo+"/";
+                    inicializador = pantalla.value;
+                    console.log(pantalla.value);
+                    if(contador == 3){
+                        //window.alert("Solo exedio la cantidad de digitos posibles");
+                        desactivar();
+                        }
+                break;
+                case 7:
+                    codigo = idBoton[5]+idBoton[6];
+                    pantalla.innerHTML += numeroMaya(codigo) +"style ='width:50px;height:50px'></img>"; // img
+                    pantalla.class=pantalla.class+1;
+                    contador = pantalla.class;
+                    pantalla.value = pantalla.value+codigo+"/";
+                    inicializador = pantalla.value;
+                    console.log(pantalla.value);
+                    if(contador == 3){
+                        //window.alert("Solo exedio la cantidad de digitos posibles");
+                        desactivar();
+                        }
+                break;
+            }      
+        }
         function conversion() {
             entrada = parseInt(document.getElementById("entrada").value);
             if ((entrada>=401)|(entrada<0)) {
@@ -25,16 +81,52 @@
             codigo2 = elementos[1];
             codigo3 = elementos[2];
             console.log("El nuemero "+entrada+" lo conforman los numeros "+codigo1+" | "+codigo2+" | "+codigo3+" en maya");
-            document.getElementById("nivel1").innerHTML = numeroMaya(codigo1);
+            document.getElementById("nivel1").innerHTML = numeroMaya(codigo1) +"style ='width:50px;height:50px'></img>"; // img
             if (entrada >= 20) {
-                document.getElementById("nivel2").innerHTML = numeroMaya(codigo2);
+                document.getElementById("nivel2").innerHTML = numeroMaya(codigo2)+"style ='width:50px;height:50px'></img>"; // img
             }
             if ( (entrada >= 400 ) && (entrada <= 7999) ) {
                 console.log("pasa");
-                document.getElementById("nivel3").innerHTML = numeroMaya(codigo3);
+                document.getElementById("nivel3").innerHTML = numeroMaya(codigo3) +"style ='width:50px;height:50px'></img>"; // img
             }
             }
         }
+        function conversion2(){
+            var pantalla = document.getElementById("pantalla");
+            var resultado = 0;
+            var codigos = pantalla.value;
+            var digitos = codigos.split("/");
+            console.log(digitos.length);
+            switch (digitos.length) {
+                case 2:
+                    pantalla = document.getElementById("pantalla2");
+                    resultado = (digitos[0]*1);
+                    pantalla.innerHTML=resultado;
+                break;
+                case 3:
+                    pantalla = document.getElementById("pantalla2");
+                    resultado = (digitos[1]*1)+(digitos[0]*20);
+                    pantalla.innerHTML=resultado;
+                break;
+                case 4:
+                    pantalla = document.getElementById("pantalla2");
+                    resultado = (digitos[2]*1)+(digitos[1]*20)+(digitos[0]*400);
+                    pantalla.innerHTML=resultado;
+                break;
+                default:
+                break;
+            }
+        }
+        function borrarTodo(){
+            var pantalla = document.getElementById("pantalla");
+            pantalla.value = 0;
+            pantalla.innerHTML="";
+            contador=0;
+            inicializador="";
+            desactivar();
+            inicio();
+        }
+
         function limpiar(){
             document.getElementById("nivel1").innerHTML = "";
             document.getElementById("nivel2").innerHTML = "";
@@ -42,50 +134,52 @@
         }
         function numeroMaya(codigo){
             imagen=" ";
+            parseInt(codigo);
             switch (codigo) {
-                case '0': imagen = "<img src='../imagenes/mayamarron0.png'></img>"
+                case '0': imagen = "<img src='../imagenes/mayamarron0.png'"
                 break;
-                case '1': imagen = "<img src='../imagenes/mayamarron1.png'></img>"
+                case '1': imagen = "<img src='../imagenes/mayamarron1.png'"
                 break;
-                case '2': imagen = "<img src='../imagenes/mayamarron2.png'></img>"
+                case '2': imagen = "<img src='../imagenes/mayamarron2.png'"
                 break;
-                case '3': imagen = "<img src='../imagenes/mayamarron3.png'></img>"
+                case '3': imagen = "<img src='../imagenes/mayamarron3.png'"
                 break;
-                case '4': imagen = "<img src='../imagenes/mayamarron4.png'></img>"
+                case '4': imagen = "<img src='../imagenes/mayamarron4.png'"
                 break;
-                case '5': imagen = "<img src='../imagenes/mayamarron5.png'></img>"
+                case '5': imagen = "<img src='../imagenes/mayamarron5.png'"
                 break;
-                case '6': imagen = "<img src='../imagenes/mayamarron6.png'></img>"
+                case '6': imagen = "<img src='../imagenes/mayamarron6.png'"
                 break;
-                case '7': imagen = "<img src='../imagenes/mayamarron7.png'></img>"
+                case '7': imagen = "<img src='../imagenes/mayamarron7.png'"
                 break;
-                case '8': imagen = "<img src='../imagenes/mayamarron8.png'></img>"
+                case '8': imagen = "<img src='../imagenes/mayamarron8.png'"
                 break;
-                case '9': imagen = "<img src='../imagenes/mayamarron9.png'></img>"
+                case '9': imagen = "<img src='../imagenes/mayamarron9.png'"
                 break;
-                case '10': imagen = "<img src='../imagenes/mayamarron10.png'></img>"
+                case '10': imagen = "<img src='../imagenes/mayamarron10.png'"
                 break;
-                case '11': imagen = "<img src='../imagenes/mayamarron11.png'></img>"
+                case '11': imagen = "<img src='../imagenes/mayamarron11.png'"
                 break;
-                case '12': imagen = "<img src='../imagenes/mayamarron12.png'></img>"
+                case '12': imagen = "<img src='../imagenes/mayamarron12.png'"
                 break;
-                case '13': imagen = "<img src='../imagenes/mayamarron13.png'></img>"
+                case '13': imagen = "<img src='../imagenes/mayamarron13.png'"
                 break;
-                case '14': imagen = "<img src='../imagenes/mayamarron14.png'></img>"
+                case '14': imagen = "<img src='../imagenes/mayamarron14.png'"
                 break;
-                case '15': imagen = "<img src='../imagenes/mayamarron15.png'></img>"
+                case '15': imagen = "<img src='../imagenes/mayamarron15.png'"
                 break;
-                case '16': imagen = "<img src='../imagenes/mayamarron16.png'></img>"
+                case '16': imagen = "<img src='../imagenes/mayamarron16.png'"
                 break;
-                case '17': imagen = "<img src='../imagenes/mayamarron17.png'></img>"
+                case '17': imagen = "<img src='../imagenes/mayamarron17.png'"
                 break;
-                case '18': imagen = "<img src='../imagenes/mayamarron18.png'></img>"
+                case '18': imagen = "<img src='../imagenes/mayamarron18.png'"
                 break;
-                case '19': imagen = "<img src='../imagenes/mayamarron19.png'></img>"
+                case '19': imagen = "<img src='../imagenes/mayamarron19.png'"
                 break;
                 }
                 return imagen;
             }
+
             function conversionAlgoritmo(numero){
                 digito1=0;
                 digito2=0;
@@ -115,10 +209,8 @@
             else
             {
                 digito1 = numero;
-                //console.log(digito1);
             }
         }
-        //console.log(digito1+"  "+digito2+"  "+digito3);
         codigo = digito1+"/"+digito2+"/"+ digito3;
         return codigo;
     }
@@ -126,23 +218,86 @@
 </head>
 <body>
     <center>
-    <h2>Ingresa un numero</h2>
-    <input id="entrada" type="number" step="1"  min="0" max="400" name="numeros">
-    <p></p>
-    <input type="button" class="boton_personalizado" id="boton_personalizado" onclick='conversion();' value="Convertir">
-    <P></P>
-    <output id="resultado" ></output>
-    <table class="default" id="tabla">
-        <tr>
-          <td id="nivel3"></td>
-        </tr>
-        <tr>
-            <td id="nivel2"></td>
-          </tr>
-          <tr>
-            <td id="nivel1"></td>
-          </tr>
-      </table>
-      </center>
+        <div class="box">
+            <div class="left">
+                <div class="content">
+                    <h2>Arabigo - Maya</h2>
+                    <input id="entrada" type="number" step="1"  min="0" max="400" name="numeros">
+                    <p></p>
+                    <input type="button" class="boton_personalizado" id="boton_personalizado" onclick='conversion();' value="Convertir">
+                    <P></P>
+                    <output id="resultado" ></output>
+                    <table class="default" id="tablaA">
+                        <tr>
+                            <td id="nivel3"></td>
+                        </tr>
+                        <tr>
+                            <td id="nivel2"></td>
+                        </tr>
+                        <tr>
+                            <td id="nivel1"></td>
+                        </tr>
+                        </table>
+                        </div>
+                    </div>
+                    <div class="right">
+                <div class="content">
+                    <h2>Maya - Arabigo</h2>
+                    <table class="default" id="tablaI">
+                        <tr>
+                            <td>
+                                <div class="box">
+                                    <div class="left">
+                                        <div class="content" id="pantalla">
+ 
+                                        </div>
+                                    </div>
+                                    <div class="right">
+                                        <div class="content" id="pantalla2">
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                </table>
+                <p id="separador"> </p>
+<!-- #region    <input type="button" class="boton_personalizado" id="boton_personalizado" onclick='borrar();' value="C">-->
+                <input type="button" class="boton_personalizado" id="boton_personalizado" onclick='borrarTodo();' value="Eliminar">
+                <input type="button" class="boton_personalizado" id="boton_personalizado" onclick='conversion2();' value="Convertir">
+                <table class="mayaboton" id="tablaM">
+                    <tr>
+                        <td><img id="boton0" class="imgboton" src="../imagenes/mayamverde0.jpg"></td>
+                        <td><img id="boton1" class="imgboton" src="../imagenes/mayamverde1.jpg"></td>
+                        <td><img id="boton2" class="imgboton" src="../imagenes/mayamverde2.jpg"></td>
+                        <td><img id="boton3" class="imgboton" src="../imagenes/mayamverde3.jpg"></td>
+                        <td><img id="boton4" class="imgboton" src="../imagenes/mayamverde4.jpg"></td>
+                    </tr>
+                    <tr>
+                        <td><img id="boton5" class="imgboton" src="../imagenes/mayamverde5.jpg"></td>
+                        <td><img id="boton6"class="imgboton" src="../imagenes/mayamverde6.jpg"></td>
+                        <td><img id="boton7"class="imgboton" src="../imagenes/mayamverde7.jpg"></td>
+                        <td><img id="boton8"class="imgboton" src="../imagenes/mayamverde8.jpg"></td>
+                        <td><img id="boton9"class="imgboton" src="../imagenes/mayamverde9.jpg"></td>
+                    </tr>
+                    <tr>
+                        <td><img id="boton10"class="imgboton" src="../imagenes/mayamverde10.jpg"></td>
+                        <td><img id="boton11"class="imgboton" src="../imagenes/mayamverde11.jpg"></td>
+                        <td><img id="boton12"class="imgboton" src="../imagenes/mayamverde12.jpg"></td>
+                        <td><img id="boton13"class="imgboton" src="../imagenes/mayamverde13.jpg"></td>
+                        <td><img id="boton14"class="imgboton" src="../imagenes/mayamverde14.jpg"></td>
+
+                    </tr>
+                    <tr>
+                        <td><img id="boton15" class="imgboton" src="../imagenes/mayamverde15.jpg"></td>
+                        <td><img id="boton16"class="imgboton" src="../imagenes/mayamverde16.jpg"></td>
+                        <td><img id="boton17" class="imgboton" src="../imagenes/mayamverde17.jpg"></td>
+                        <td><img id="boton18"class="imgboton" src="../imagenes/mayamverde18.jpg"></td>
+                        <td><img id="boton19"class="imgboton" src="../imagenes/mayamverde19.jpg"></td>
+                    </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </center>
 </body>
 </html>
